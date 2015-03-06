@@ -1,0 +1,9 @@
+#!/bin/sh
+
+SOURCETYPE="AUR"
+SOURCEPATH="https://aur.archlinux.org/packages/an/android-google-play-services/android-google-play-services.tar.gz"
+
+function GetSourcePatch {
+	sed -i "s/^arch=('any')/arch=('i686' 'x86_64')/g" PKGBUILD
+}
+
