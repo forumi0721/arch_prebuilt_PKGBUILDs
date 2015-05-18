@@ -8,5 +8,27 @@ function GetSourcePatch {
 	sed -i "s/^depends=('avahi' 'openssl' 'python2')/depends=('avahi' 'openssl' 'python2' 'uriparser' 'ffmpeg')/g" PKGBUILD
 	sed -i "s/^makedepends=('git')/makedepends=('git' 'java-runtime')/g" PKGBUILD
 	sed -i "s/^	'ffmpeg-compat: for transcoding support')/)/g" PKGBUILD
-	sed -i "s#if \[ -d \"/usr/include/ffmpeg-compat\" \]; then#if \[ 0 = 1 \]; then#g" PKGBUILD
-}
+	cat << 'EOF' > /tmp/tvheadend-git.patch
+diff --git a/PKGBUILD b/PKGBUILD
+index 8bf5dc4..a3210b5 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -33,11 +33,8 @@ pkgver() {
+ 
+ build() {
+ 	cd ${_gitname}
+-	if [ -d "/usr/include/ffmpeg-compat" ]; then
+-		export PKG_CONFIG_PATH=/usr/lib/ffmpeg-compat/pkgconfig:$PKG_CONFIG_PATH
+-		CFLAGS+=" `pkg-config --cflags libavcodec libavutil libavformat libswscale` "
+-		LDFLAGS+=" `pkg-config --libs libavcodec libavutil libavformat libswscale` -Wl,-rpath /usr/lib/ffmpeg-compat"
+-	fi
++	CFLAGS+=" `pkg-config --cflags libavcodec libavutil libavformat libswscale` "
++	LDFLAGS+=" `pkg-config --libs libavcodec libavutil libavformat libswscale` "
+ 	./configure --prefix=/usr --mandir=/usr/share/man/man1 --python=python2 --release
+ 	make
+ }
+EOF
+	patch -p1 < /tmp/tvheadend-git.patch
+	rm -rf /tmp/tvheadend-git.patch
+	rm -rf PKGBUILD.*
+ }
