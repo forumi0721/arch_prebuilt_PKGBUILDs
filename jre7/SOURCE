@@ -1,0 +1,34 @@
+#!/bin/sh
+
+SOURCETYPE="AUR"
+SOURCEPATH="https://aur.archlinux.org/packages/jr/jre7/jre7.tar.gz"
+
+function GetSourcePatch {
+	sed -i "s/^arch=('x86_64')/arch=('i686' 'x86_64')/g" PKGBUILD
+	cat << 'EOF' > /tmp/jre7.patch
+--- PKGBUILD.ORG	2015-05-27 10:26:26.712615029 +0900
++++ PKGBUILD	2015-05-27 10:59:27.878503489 +0900
+@@ -22,11 +22,17 @@ provides=("java-runtime=$_major" "java-r
+           "java-runtime-jre=$_major" "java-runtime-headless-jre=$_major" "java-web-start-jre=$_major")
+ 
+ # Variables
++_arch=x64
++_arch2=amd64
++if [[ $CARCH = i686 ]]; then
++  _arch=i586
++  _arch2=i386
++fi
+ DLAGENTS=('http::/usr/bin/curl -LC - -b oraclelicense=a -O')
+ _jname=${_pkgname}${_major}
+ _jvmdir=/usr/lib/jvm/java-$_major-$_pkgname/jre
+ 
+-backup=("etc/java-$_jname/amd64/jvm.cfg"
++backup=("etc/java-$_jname/$_arch2/jvm.cfg"
+         "etc/java-$_jname/images/cursors/cursors.properties"
+         "etc/java-$_jname/management/jmxremote.access"
+         "etc/java-$_jname/management/management.properties"
+EOF
+	patch -p1 < /tmp/jre7.patch
+	rm -rf /tmp/jre7.patch
+	rm -rf PKGBUILD.*
+ }
