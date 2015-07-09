@@ -1,5 +1,0 @@
-#!/bin/sh
-
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/pe/perl-sys-virt/perl-sys-virt.tar.gz"
-

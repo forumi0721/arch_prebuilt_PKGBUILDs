@@ -1,5 +1,0 @@
-#!/bin/sh
-
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/py/python2-pyparted/python2-pyparted.tar.gz"
-

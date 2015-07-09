@@ -1,5 +1,0 @@
-#!/bin/sh
-
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/li/libguestfs/libguestfs.tar.gz"
-
