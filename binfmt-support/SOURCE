@@ -1,5 +1,0 @@
-#!/bin/sh
-
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/bi/binfmt-support/binfmt-support.tar.gz"
-
