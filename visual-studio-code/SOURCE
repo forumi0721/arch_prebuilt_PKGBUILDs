@@ -1,5 +1,9 @@
 #!/bin/sh
 
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/vi/visual-studio-code/visual-studio-code.tar.gz"
+SOURCETYPE="AUR4"
+SOURCEPATH="https://aur4.archlinux.org/visual-studio-code.git"
+
+function GetSourcePatch {
+	sed -i "s/^source_i1686/source_i686/g" PKGBUILD
+}
 

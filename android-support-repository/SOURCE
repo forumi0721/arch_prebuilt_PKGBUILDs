@@ -1,7 +1,7 @@
 #!/bin/sh
 
-SOURCETYPE="AUR"
-SOURCEPATH="https://aur.archlinux.org/packages/an/android-support-repository/android-support-repository.tar.gz"
+SOURCETYPE="AUR4"
+SOURCEPATH="https://aur4.archlinux.org/android-support-repository.git"
 
 function GetSourcePatch {
 	sed -i "s/^arch=('any')/arch=('i686' 'x86_64')/g" PKGBUILD
