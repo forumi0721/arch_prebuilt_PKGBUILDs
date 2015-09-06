@@ -1,42 +1,29 @@
-# Maintainer: Stefan Brand <seiichiro@seiichiro0185.org>
-pkgname=vlc-htsp-plugin-git
-pkgver=0.2
-pkgrel=1
-pkgdesc="Plugin for VLC to access TVHeadend via HTSP"
-arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h')
-url="https://github.com/BtbN/vlc-htsp-plugin"
-license=('GPL')
-depends=('vlc')
-makedepends=('git')
-md5sums=() #generate with 'makepkg -g'
+# Maintainer: doragasu: doragasu <yawn> hotmail <roll> com
 
-_gitroot="https://github.com/BtbN/vlc-htsp-plugin.git"
-_gitname="vlc-htsp-plugin"
+_basename=vlc-htsp-plugin
+pkgname=${_basename}-git
+pkgver=r147
+pkgrel=1
+pkgdesc="The HTSP VLC plugin allows VLC to act as a standalone Tvheadend client."
+arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h')
+url="https://github.com/BtbN/vlc-htsp-plugin/"
+license=('GPL2')
+depends=('vlc')
+conflicts=("$_basename")
+provides=("$_basename")
+
+source=("git+https://github.com/BtbN/${_basename}.git")
+md5sums=('SKIP')
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
-  make
+	# Just build...
+	cd "${_basename}"
+	make
 }
 
 package() {
-  cd "$srcdir/$_gitname-build"
-  make DESTDIR="$pkgdir/" install
+	# ... and install
+	cd "${_basename}"
+	DESTDIR=${pkgdir} make install
 }
 
-# vim:set ts=2 sw=2 et:
