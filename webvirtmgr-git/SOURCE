@@ -1,0 +1,16 @@
+#!/bin/sh
+
+SOURCETYPE="AUR4"
+SOURCEPATH="https://aur.archlinux.org/webvirtmgr-git.git"
+
+GetSourcePatch() {
+	local sha512sum="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
+	sed -i 's$# sudo python2 $# sudo PYTHONPATH=/usr/lib/webvirtmgr/lib python2 $g' webvirtmgr-git.install
+    sed -i 's$# chown webvirtmgr:webvirtmgr $# sudo chown webvirtmgr:webvirtmgr $g' webvirtmgr-git.install
+	if [ -z "$(grep 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr.ini)" ]; then
+		echo 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' >> webvirtmgr.ini
+	fi
+	local sha512sum2="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
+
+	sed -i "s/${sha512sum}/${sha512sum2}/g" PKGBUILD
+}
