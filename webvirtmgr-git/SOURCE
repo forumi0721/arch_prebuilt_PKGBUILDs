@@ -10,6 +10,7 @@ GetSourcePatch() {
 	if [ -z "$(grep 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr.ini)" ]; then
 		echo 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' >> webvirtmgr.ini
 	fi
+	sed -i '/PKGEXT=/d' PKGBUILD
 	local sha512sum2="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
 
 	sed -i "s/${sha512sum}/${sha512sum2}/g" PKGBUILD

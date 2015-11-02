@@ -18,7 +18,6 @@ source=('git+https://github.com/retspen/webvirtmgr.git'
 sha512sums=('SKIP'
             '09469b807ab79177220f62316c2cbb7da72b4577f17c5a104d106a2392090753422740dc9dfb4f952e2d40e74ca7209ece911f7993dae0720659239d25c28d01'
             '78ae3aef65e4c362a7d70ff3a44d1c3ccd489ed7b77311d0ecb4d795aa587dc75e43356f56e4afbb180e0558859b64cbe78ca45bb234920ff3302b01e59716db')
-PKGEXT='.pkg.tar.gz'
 
 pkgver() {
   cd 'webvirtmgr'
