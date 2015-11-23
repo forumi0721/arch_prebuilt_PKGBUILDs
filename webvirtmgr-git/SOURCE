@@ -4,14 +4,23 @@ SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/webvirtmgr-git.git"
 
 GetSourcePatch() {
-	local sha512sum="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
-	sed -i 's$# sudo python2 $# sudo PYTHONPATH=/usr/lib/webvirtmgr/lib python2 $g' webvirtmgr-git.install
-    sed -i 's$# chown webvirtmgr:webvirtmgr $# sudo chown webvirtmgr:webvirtmgr $g' webvirtmgr-git.install
+	local sha512sum_service="$(sha512sum webvirtmgr-novnc.service | cut -f 1 -d ' ')"
+	sed -i 's$webvirtmgr-novnc$webvirtmgr-console$g' webvirtmgr-novnc.service
+	if [ -z "$(grep '1Environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr-novnc.service)" ]; then
+		sed -i "/^Environment=.*/ {N;N; s/\(Environment=.*\)\(User=.*\)/\1Environment=PYTHONPATH=\/usr\/lib\/webvirtmgr\/lib\n\2/g}" webvirtmgr-novnc.service
+	fi
+	local sha512sum_service_2="$(sha512sum webvirtmgr-novnc.service | cut -f 1 -d ' ')"
+	sed -i "s/${sha512sum_service}/${sha512sum_service_2}/g" PKGBUILD
+
+	local sha512sum_ini="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
 	if [ -z "$(grep 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr.ini)" ]; then
 		echo 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' >> webvirtmgr.ini
 	fi
-	sed -i '/PKGEXT=/d' PKGBUILD
-	local sha512sum2="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
+	local sha512sum_ini_2="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
+	sed -i "s/${sha512sum_ini}/${sha512sum_ini_2}/g" PKGBUILD
 
-	sed -i "s/${sha512sum}/${sha512sum2}/g" PKGBUILD
+	sed -i 's$# sudo python2 $# sudo PYTHONPATH=/usr/lib/webvirtmgr/lib python2 $g' webvirtmgr-git.install
+    sed -i 's$# chown webvirtmgr:webvirtmgr $# sudo chown webvirtmgr:webvirtmgr $g' webvirtmgr-git.install
+
+	sed -i '/PKGEXT=/d' PKGBUILD
 }
