@@ -38,5 +38,5 @@ package() {
   pip2 install -r 'requirements.txt' -t "${outputdir}/lib"
 
   install -dm0755 "${pkgdir}/etc/nginx/conf.d"
-  install -Dm0644 webvirtmgr.nginx.conf.sample "${pkgdir}/etc/nginx/conf.d/webvirtmgr.nginx.conf.sample"
+  install -Dm0644 "${srcdir}/webvirtmgr.nginx.conf.sample" "${pkgdir}/etc/nginx/conf.d/webvirtmgr.nginx.conf.sample"
 }

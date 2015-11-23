@@ -60,6 +60,6 @@ EOF
 
 	if [ -z "$(grep "webvirtmgr.nginx.conf.sample" PKGBUILD)" ]; then
 		sed -i -e "/^source=.*/ {N;N;N; s/\(source=.*\))/\1\n        'webvirtmgr.nginx.conf.sample')/g}" -e "/sha512sums=.*/ {N;N;N; s/\(sha512sums=.*\))/\1\n            '$(sha512sum webvirtmgr.nginx.conf.sample | cut -f -1 -d ' ')')/g}" PKGBUILD
-		sed -i -e "s/\(pip2 install.*\)/\1\n\n  install -dm0755 \"\${pkgdir}\/etc\/nginx\/conf\.d\"\n  install -Dm0644 webvirtmgr\.nginx\.conf\.sample \"\${pkgdir}\/etc\/nginx\/conf\.d\/webvirtmgr\.nginx\.conf\.sample\"/g" PKGBUILD
+		sed -i -e "s/\(pip2 install.*\)/\1\n\n  install -dm0755 \"\${pkgdir}\/etc\/nginx\/conf\.d\"\n  install -Dm0644 \"\${srcdir}\/webvirtmgr\.nginx\.conf\.sample\" \"\${pkgdir}\/etc\/nginx\/conf\.d\/webvirtmgr\.nginx\.conf\.sample\"/g" PKGBUILD
 	fi
 }
