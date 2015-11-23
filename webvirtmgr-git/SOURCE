@@ -4,13 +4,21 @@ SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/webvirtmgr-git.git"
 
 GetSourcePatch() {
-	local sha512sum_service="$(sha512sum webvirtmgr-novnc.service | cut -f 1 -d ' ')"
-	sed -i 's$webvirtmgr-novnc$webvirtmgr-console$g' webvirtmgr-novnc.service
-	if [ -z "$(grep '1Environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr-novnc.service)" ]; then
-		sed -i "/^Environment=.*/ {N;N; s/\(Environment=.*\)\(User=.*\)/\1Environment=PYTHONPATH=\/usr\/lib\/webvirtmgr\/lib\n\2/g}" webvirtmgr-novnc.service
+	local sha512sum_service=
+	if [ -e webvirtmgr-novnc.service ]; then
+		sha512sum_service="$(sha512sum webvirtmgr-novnc.service | cut -f 1 -d ' ')"
+		mv webvirtmgr-novnc.service webvirtmgr-console.service
+	else
+		sha512sum_service="$(sha512sum webvirtmgr-console.service | cut -f 1 -d ' ')"
 	fi
-	local sha512sum_service_2="$(sha512sum webvirtmgr-novnc.service | cut -f 1 -d ' ')"
+	sed -i 's$webvirtmgr-novnc$webvirtmgr-console$g' webvirtmgr-console.service
+	if [ -z "$(grep 'Environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr-console.service)" ]; then
+		sed -i "/^Environment=.*/ {N;N; s/\(Environment=.*\)\(User=.*\)/\1Environment=PYTHONPATH=\/usr\/lib\/webvirtmgr\/lib\n\2/g}" webvirtmgr-console.service
+	fi
+	local sha512sum_service_2="$(sha512sum webvirtmgr-console.service | cut -f 1 -d ' ')"
 	sed -i "s/${sha512sum_service}/${sha512sum_service_2}/g" PKGBUILD
+
+	sed -i "s/webvirtmgr-novnc/webvirtmgr-console/g" PKGBUILD
 
 	local sha512sum_ini="$(sha512sum webvirtmgr.ini  | cut -f 1 -d ' ')"
 	if [ -z "$(grep 'environment=PYTHONPATH=/usr/lib/webvirtmgr/lib' webvirtmgr.ini)" ]; then
@@ -23,4 +31,35 @@ GetSourcePatch() {
     sed -i 's$# chown webvirtmgr:webvirtmgr $# sudo chown webvirtmgr:webvirtmgr $g' webvirtmgr-git.install
 
 	sed -i '/PKGEXT=/d' PKGBUILD
+
+	cat << 'EOF' > webvirtmgr.nginx.conf.sample
+server {
+	listen 8006 default_server;
+
+	server_name $hostname;
+	#access_log /var/log/nginx/webvirtmgr_access_log; 
+
+	location /static/ {
+		root /usr/lib/webvirtmgr/webvirtmgr; # or /srv instead of /var
+			expires max;
+	}
+
+	location / {
+		proxy_pass http://127.0.0.1:8000;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-for $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host:$server_port;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_connect_timeout 600;
+		proxy_read_timeout 600;
+		proxy_send_timeout 600;
+		client_max_body_size 1024M; # Set higher depending on your needs 
+	}
+}
+EOF
+
+	if [ -z "$(grep "webvirtmgr.nginx.conf.sample" PKGBUILD)" ]; then
+		sed -i -e "/^source=.*/ {N;N;N; s/\(source=.*\))/\1\n        'webvirtmgr.nginx.conf.sample')/g}" -e "/sha512sums=.*/ {N;N;N; s/\(sha512sums=.*\))/\1\n            '$(sha512sum webvirtmgr.nginx.conf.sample | cut -f -1 -d ' ')')/g}" PKGBUILD
+		sed -i -e "s/\(pip2 install.*\)/\1\n\n  install -dm0755 \"\${pkgdir}\/etc\/nginx\/conf\.d\"\n  install -Dm0644 webvirtmgr\.nginx\.conf\.sample \"\${pkgdir}\/etc\/nginx\/conf\.d\/webvirtmgr\.nginx\.conf\.sample\"/g" PKGBUILD
+	fi
 }
