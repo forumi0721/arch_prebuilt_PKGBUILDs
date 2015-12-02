@@ -1,0 +1,9 @@
+[Unit]
+Description=No-IP Dynamic DNS Update Client
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

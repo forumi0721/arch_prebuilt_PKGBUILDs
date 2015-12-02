@@ -13,9 +13,11 @@ license=('GPL')
 install="$pkgname.install"
 depends=('glibc')
 source=('http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz'
-        'noip.service')
+        'noip.service'
+        'noip.timer')
 sha256sums=('82b9bafab96a0c53b21aaef688bf70b3572e26217b5e2072bdb09da3c4a6f593'
-            '624553d92d69bb76cb457a056a7722dc051b5bbd17ea0e622b5cc08909019ea5')
+            'd74aaec349e99d832ea8716d39a3b722e1571a96aebc3de3ef5328c77f11b287'
+            '9f330d0f178573dcc626ef8b1e0675cda4df441715196d921485469e144e770b')
 
 
 prepare() {
@@ -37,5 +39,7 @@ package() {
   install -Dm755 noip2 "$pkgdir/usr/bin/noip2"
   install -Dm644 "$srcdir/$pkgname.service" \
     "$pkgdir/usr/lib/systemd/system/noip2.service"
+  install -Dm644 "$srcdir/$pkgname.timer" \
+    "$pkgdir/usr/lib/systemd/system/noip2.timer"
 }
 
