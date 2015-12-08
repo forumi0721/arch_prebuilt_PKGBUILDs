@@ -9,28 +9,6 @@ GetSourcePatch() {
 
 	local sha256sum_service="$(sha256sum noip.service | cut -f 1 -d ' ')"
 	sed -i "s/^After=network.target$/Requires=systemd-resolved.service\nAfter=network.target network-online.target systemd-resolved.service/g" noip.service
-	sed -i "s/Type=forking/Type=oneshot/g" noip.service
-	sed -i -e "/\[Install\]/d" -e "/WantedBy=/d" noip.service
 	local sha256sum_service_2="$(sha256sum noip.service | cut -f 1 -d ' ')"
-
-	cat << 'EOF' > noip.timer
-[Unit]
-Description=No-IP Dynamic DNS Update Client
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-
-[Install]
-WantedBy=multi-user.target
-EOF
-	local sha256sum_timer="$(sha256sum noip.timer | cut -f 1 -d ' ')"
-
-	sed -i "s/'${sha256sum_service}')/'${sha256sum_service_2}'\n            '${sha256sum_timer}')/g" PKGBUILD
-	sed -i "s/'noip.service')/'noip.service'\n        'noip.timer')/g" PKGBUILD
-
-	if [ -z "$(grep 'install -Dm644 "$srcdir/$pkgname.timer"' PKGBUILD)" ]; then
-		sed -i -e "/^  install -Dm644 \"\$srcdir\/\$pkgname\.service\" \\\/ {N; s/\(  install -Dm644 \"\$srcdir\/\$pkgname\.service\" \\\.*    \"\$pkgdir\/usr\/lib\/systemd\/system\/noip2\.service\"\)/\1\n  install -Dm644 \"\$srcdir\/\$pkgname\.timer\" \\\\\n    \"\$pkgdir\/usr\/lib\/systemd\/system\/noip2\.timer\"/g}" PKGBUILD
-	fi
 }
 

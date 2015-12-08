@@ -4,6 +4,8 @@ Requires=systemd-resolved.service
 After=network.target network-online.target systemd-resolved.service
 
 [Service]
-Type=oneshot
+Type=forking
 ExecStart=/usr/bin/noip2 -c /etc/no-ip2.conf
 
+[Install]
+WantedBy=multi-user.target
