@@ -6,10 +6,5 @@ SOURCEPATH="https://aur4.archlinux.org/noip.git"
 
 GetSourcePatch() {
 	sed -i "s/^arch=('x86_64' 'i686' 'armv7h' 'armv6h')/arch=(\"i686\" \"x86_64\" \"arm\" \"armv6h\" \"armv7h\")/g" PKGBUILD
-
-	local sha256sum_service="$(sha256sum noip.service | cut -f 1 -d ' ')"
-	sed -i "s/^After=network.target$/Requires=systemd-resolved.service\nAfter=network.target network-online.target systemd-resolved.service/g" noip.service
-	local sha256sum_service_2="$(sha256sum noip.service | cut -f 1 -d ' ')"
-	sed -i "s/${sha256sum_service}/${sha256sum_service_2}/g" PKGBUILD
 }
 
