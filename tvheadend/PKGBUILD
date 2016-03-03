@@ -8,7 +8,7 @@ pkgdesc="TV streaming server for Linux"
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h')
 url="https://tvheadend.org/projects/tvheadend"
 license=('GPL3')
-depends=('avahi' 'linuxtv-dvb-apps' 'openssl' 'python2' 'ffmpeg' 'uriparser')
+depends=('avahi' 'linuxtv-dvb-apps' 'openssl' 'python2' 'ffmpeg' 'ffmpeg2.8' 'uriparser')
 makedepends=('git')
 optdepends=('xmltv: For an alternative source of programme listings'
 	    'libhdhomerun: support for HDHomeRun devices')
