@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/thermald.git"
+SOURCEPATH="https://aur.archlinux.org/thermald.git"
+ur./g
 

@@ -1,7 +1,8 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/apache-tools.git"
+SOURCEPATH="https://aur.archlinux.org/apache-tools.git"
+ur./g
 
 function GetSourcePatch {
 	sed -i "s/^arch=(\"i686\" \"x86_64\" \"armv6h\" \"armv7h\")/arch=(\"i686\" \"x86_64\" \"arm\" \"armv6h\" \"armv7h\")/g" PKGBUILD

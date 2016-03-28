@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/bootimg-tools-git.git"
+SOURCEPATH="https://aur.archlinux.org/bootimg-tools-git.git"
+ur./g
 

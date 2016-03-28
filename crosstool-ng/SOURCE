@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/crosstool-ng.git"
+SOURCEPATH="https://aur.archlinux.org/crosstool-ng.git"
+ur./g
 

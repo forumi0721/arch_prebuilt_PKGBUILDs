@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/libtinfo.git"
+SOURCEPATH="https://aur.archlinux.org/libtinfo.git"
+ur./g
 

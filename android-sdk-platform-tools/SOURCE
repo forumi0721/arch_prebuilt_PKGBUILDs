@@ -1,7 +1,8 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/android-sdk-platform-tools.git"
+SOURCEPATH="https://aur.archlinux.org/android-sdk-platform-tools.git"
+ur./g
 
 GetSourcePatch() {
 	sed -i "s/^arch=('x86_64' 'i686' 'armv7h' 'armv6h')/arch=(\"i686\" \"x86_64\" \"arm\" \"armv6h\" \"armv7h\")/g" PKGBUILD

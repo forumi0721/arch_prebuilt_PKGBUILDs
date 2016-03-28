@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/android-sdk-build-tools.git"
+SOURCEPATH="https://aur.archlinux.org/android-sdk-build-tools.git"
+ur./g
 

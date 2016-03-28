@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/android-studio.git"
+SOURCEPATH="https://aur.archlinux.org/android-studio.git"
+ur./g
 

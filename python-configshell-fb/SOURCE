@@ -1,5 +1,6 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/python-configshell-fb.git"
+SOURCEPATH="https://aur.archlinux.org/python-configshell-fb.git"
+ur./g
 

@@ -1,7 +1,8 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/android-google-play-apk-expansion.git"
+SOURCEPATH="https://aur.archlinux.org/android-google-play-apk-expansion.git"
+ur./g
 
 function GetSourcePatch {
 	sed -i "s/^arch=('any')/arch=('i686' 'x86_64')/g" PKGBUILD

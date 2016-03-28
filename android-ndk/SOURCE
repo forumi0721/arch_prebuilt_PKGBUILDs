@@ -1,5 +1,5 @@
 #!/bin/sh
 
 SOURCETYPE="AUR4"
-SOURCEPATH="https://aur4.archlinux.org/android-ndk.git"
+SOURCEPATH="https://aur.archlinux.org/android-ndk.git"
 
