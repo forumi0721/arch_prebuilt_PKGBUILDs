@@ -2,7 +2,6 @@
 
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/tvheadend.git"
-ur./g
 
 GetSourcePatch() {
 	sed -i "s/depends=('avahi' 'linuxtv-dvb-apps' 'openssl' 'python2' 'ffmpeg' 'uriparser')/depends=('avahi' 'linuxtv-dvb-apps' 'openssl' 'python2' 'ffmpeg' 'ffmpeg2.8' 'uriparser')/g" PKGBUILD
