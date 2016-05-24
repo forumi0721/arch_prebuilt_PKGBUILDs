@@ -4,7 +4,7 @@
 # Contributor: ThinCarrotShrimp <christoph.r.martin+arch at gmail dot com>
 
 pkgname=oh-my-zsh-git
-pkgver=3920.0ebe359
+pkgver=3966.1e90f36
 pkgrel=1
 pkgdesc="A community-driven framework for managing your zsh configuration. Includes 180+ optional plugins and over 120 themes to spice up your morning, and an auto-update tool so that makes it easy to keep up with the latest updates from the community"
 arch=('any')
@@ -53,8 +53,8 @@ package() {
   rm -f tools/upgrade.sh tools/uninstall.sh tools/install.sh tools/check_for_upgrade.sh
 
   # The license should be in /usr/share/licenses.
-  install -D -m644 MIT-LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  rm MIT-LICENSE.txt
+  install -D -m644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  rm LICENSE.txt
 
   # Copy everything else.
   cp -r . "${pkgdir}/usr/share/oh-my-zsh/"

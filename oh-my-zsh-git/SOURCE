@@ -3,3 +3,6 @@
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/oh-my-zsh-git.git"
 
+function GetSourcePatch {
+	sed -i "s/MIT-LICENSE\.txt/LICENSE\.txt/g" PKGBUILD
+}
