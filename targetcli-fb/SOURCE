@@ -3,8 +3,3 @@
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/targetcli-fb.git"
 
-function GetSourcePatch {
-	sed -i "s/^makedepends=('python-setuptools')/makedepends=('python-setuptools' 'python-pyudev')/g" PKGBUILD
-	sed -i "s/'python-dbus')/'python-dbus' 'python-pyudev')/g" PKGBUILD
-}
-
