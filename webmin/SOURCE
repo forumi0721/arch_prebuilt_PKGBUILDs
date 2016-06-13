@@ -1,0 +1,8 @@
+#!/bin/sh
+
+SOURCETYPE="AUR4"
+SOURCEPATH="https://aur.archlinux.org/webmin.git"
+
+GetSourcePatch() {
+	sed -i "s/^arch=(i686 x86_64)/arch=(i686 x86_64 arm armv6h armv7h)/g" PKGBUILD
+}
