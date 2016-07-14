@@ -1,0 +1,32 @@
+# Maintainer: Yen Chi Hsuan <yan12125 at gmail dot com>
+# Contributor: wenLiangcan <boxeed at gmail dot com>
+
+pkgname=bypy-git
+_pkgname=bypy
+pkgver=1.2.22.r0.g05525eb
+epoch=1
+pkgrel=1
+pkgdesc="Python client for Baidu Yun (Personal Cloud Storage) 百度云/百度网盘 Python 客户端"
+arch=("any")
+url="https://github.com/houtianze/bypy"
+license=('GPL')
+makedepends=('git' 'python-setuptools' 'python-pypandoc')
+depends=('python-requests')
+provides=('bypy')
+source=("git+https://github.com/houtianze/bypy")
+md5sums=('SKIP')
+
+pkgver() {
+    cd "${srcdir}/${_pkgname}"
+    ( set -o pipefail
+      git describe --long --tag 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//' ||
+      printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    )
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+    PYTHONIOENCODING="utf-8" python setup.py install --root="${pkgdir}" --optimize=1
+
+    rm "${pkgdir}/usr/bin/bypy.bat"
+}
