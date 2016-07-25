@@ -3,3 +3,7 @@
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/arduino.git"
 
+GetSourcePatch() {
+	sed -i "s/^arch=('i686' 'x86_64' 'armv6h' 'armv7h')/arch=('i686' 'x86_64')/g" PKGBUILD
+}
+
