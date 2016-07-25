@@ -2,7 +2,7 @@
 
 _pkgname=sdat2img
 pkgname=$_pkgname-git
-pkgver=r18.4cad8bb
+pkgver=r21.118ba5a
 pkgrel=1
 pkgdesc="Convert sparse Android data image to filesystem image"
 arch=('i686' 'x86_64')
