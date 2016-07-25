@@ -3,7 +3,7 @@
 SOURCETYPE="AUR"
 SOURCEPATH="https://aur.archlinux.org/packages/an/android-google-webdriver/android-google-webdriver.tar.gz"
 
-function GetSourcePatch {
+GetSourcePatch() {
 	sed -i "s/^arch=('any')/arch=('i686' 'x86_64')/g" PKGBUILD
 }
 

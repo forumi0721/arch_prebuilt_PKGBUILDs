@@ -3,7 +3,7 @@
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/android-google-play-licensing.git"
 
-function GetSourcePatch {
+GetSourcePatch() {
 	sed -i "s/^arch=('any')/arch=('i686' 'x86_64')/g" PKGBUILD
 }
 

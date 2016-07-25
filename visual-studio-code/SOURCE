@@ -3,7 +3,7 @@
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/visual-studio-code.git"
 
-function GetSourcePatch {
+GetSourcePatch() {
 	sed -i "s/^source_i1686/source_i686/g" PKGBUILD
 }
 
