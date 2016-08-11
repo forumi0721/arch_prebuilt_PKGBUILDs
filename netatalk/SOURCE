@@ -2,4 +2,5 @@
 
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/netatalk.git"
+IGNORE_ARCH=("armv6h" "armv7h")
 
