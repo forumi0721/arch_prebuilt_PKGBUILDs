@@ -2,4 +2,5 @@
 
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/tvheadend-git.git"
+IGNORE_ARCH=("arm" "armv6h" "armv7h")
 
