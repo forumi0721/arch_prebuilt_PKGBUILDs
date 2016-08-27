@@ -1,6 +1,5 @@
 #!/bin/sh
 
-LOCALPKGVER="N"
 SOURCETYPE="AUR4"
 SOURCEPATH="https://aur.archlinux.org/kodi-addon-pvr-hts.git"
 
